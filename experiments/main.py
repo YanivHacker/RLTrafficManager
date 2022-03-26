@@ -1,3 +1,7 @@
+"""
+MAIN.PY - this is the file that defines & runs the RL algorithms for Single Agent
+"""
+
 import gym
 import numpy as np
 import pandas as pd
@@ -85,7 +89,7 @@ if __name__ == '__main__':
                             use_gui=False,
                             num_seconds=100000,
                             max_depart_delay=0)
-        if args.method == "randomm":
+        if args.method == "random":
             env.reset()
             for i in range(100000):
                 action = env.action_space.sample()
@@ -101,8 +105,7 @@ if __name__ == '__main__':
                     if done:
                         env.reset()
                 action +=1
-                if action > 3:
-                    action = 0
+                action %= 4
             env.reset()
         else:
             print('Invalid algorithm')

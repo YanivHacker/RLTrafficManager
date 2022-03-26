@@ -1,3 +1,8 @@
+"""
+Here we create the connection between the python backend side and the SUMO simulator environment
+"""
+
+
 import os
 import sys
 from pathlib import Path

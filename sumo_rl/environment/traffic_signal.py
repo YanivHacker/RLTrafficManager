@@ -1,3 +1,7 @@
+"""
+This is the definition and configurations of the traffic lights structure in the simulator
+"""
+
 import os
 import sys
 if 'SUMO_HOME' in os.environ:
@@ -45,7 +49,7 @@ class TrafficSignal:
         self.lanes = list(dict.fromkeys(self.sumo.trafficlight.getControlledLanes(self.id)))  # Remove duplicates and keep order
         self.out_lanes = [link[0][1] for link in self.sumo.trafficlight.getControlledLinks(self.id) if link]
         self.out_lanes = list(set(self.out_lanes))
-        self.lanes_lenght = {lane: self.sumo.lane.getLength(lane) for lane in self.lanes}
+        self.lanes_length = {lane: self.sumo.lane.getLength(lane) for lane in self.lanes}
 
         self.observation_space = spaces.Box(low=np.zeros(self.num_green_phases+1+2*len(self.lanes), dtype=np.float32), high=np.ones(self.num_green_phases+1+2*len(self.lanes), dtype=np.float32))
         self.discrete_observation_space = spaces.Tuple((
@@ -189,11 +193,11 @@ class TrafficSignal:
 
     def get_lanes_density(self):
         vehicle_size_min_gap = 7.5  # 5(vehSize) + 2.5(minGap)
-        return [min(1, self.sumo.lane.getLastStepVehicleNumber(lane) / (self.lanes_lenght[lane] / vehicle_size_min_gap)) for lane in self.lanes]
+        return [min(1, self.sumo.lane.getLastStepVehicleNumber(lane) / (self.lanes_length[lane] / vehicle_size_min_gap)) for lane in self.lanes]
 
     def get_lanes_queue(self):
         vehicle_size_min_gap = 7.5  # 5(vehSize) + 2.5(minGap)
-        return [min(1, self.sumo.lane.getLastStepHaltingNumber(lane) / (self.lanes_lenght[lane] / vehicle_size_min_gap)) for lane in self.lanes]
+        return [min(1, self.sumo.lane.getLastStepHaltingNumber(lane) / (self.lanes_length[lane] / vehicle_size_min_gap)) for lane in self.lanes]
     
     def get_total_queued(self):
         return sum([self.sumo.lane.getLastStepHaltingNumber(lane) for lane in self.lanes])

@@ -1,10 +1,5 @@
 """
-This is a simple example training script for PettingZoo environments. It also
-demonstrates how to handle environments where the partners have different
-observation and action spaces.
-To run this script, remember to first install pettingzoo's classic environments
-via `pip install "pettingzoo[classic]"`
-You can also swap out tictactoe_v3 with some other classic environment
+Here we define & run the RL algorithms in the 2-intersections experiment
 """
 
 from stable_baselines3 import PPO, A2C, DQN
@@ -44,7 +39,7 @@ if __name__ == '__main__':
     elif args.method == "dqn":
         ego = DQN('MlpPolicy', env, gamma=0.99, learning_rate=0.0005, verbose=0)
         ego.learn(total_timesteps=100000)
-    elif args.method == "randomm":
+    elif args.method == "random":
         env.reset()
         for i in range(100000):
             action = env.action_space.sample()
@@ -60,8 +55,7 @@ if __name__ == '__main__':
                 if done:
                     env.reset()
             action +=1
-            if action > 3:
-                action = 0
+            action %= 4
         env.reset()
     else:
         print('Invalid choice')

@@ -1,3 +1,6 @@
+"""
+This is the file containing the scripts used to plot the results - performance, comparisons etc. in Single Agent experiment
+"""
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -96,7 +99,7 @@ def plot_from_file_paraworker(path, fig, ax, color, lable, sign):
     plot_data2(results2, ax, color, sign, lable, 1)
     return ax
 
-path_local="/home/umer/exp/sumo/"
+path_local="/home/Users/yaniv/PyCharmProjects/RLTrafficManager"
 drawlist=['ppo', 'a2c', 'fixed', 'random', 'all', 'dqn']    
 # drawlist = ["fixedrandom", "all"]
 
@@ -105,7 +108,7 @@ my_labels= {"x1": "A2C", "x2": "PPO", "x3": "DQN", "x4": "Random", "x5": "Fixed"
 if "fixedrandom" in drawlist:
     fig, ax = plt.subplots()
     plot_from_file(path_local + "sumo_2way_single/fixed_"+'**', fig, ax, 'lime', my_labels["x5"], ':')
-    plot_from_file(path_local + "sumo_2way_single/randomm_"+'**', fig, ax, 'grey', my_labels["x4"], ':')
+    plot_from_file(path_local + "sumo_2way_single/random_"+'**', fig, ax, 'grey', my_labels["x4"], ':')
     
     ax.set_xlabel("Number of Steps")
     ax.set_ylabel("Waiting Time")
@@ -149,7 +152,7 @@ if "a2c" in drawlist:
 
 if "random" in drawlist:
     fig, ax = plt.subplots()
-    plot_from_file(path_local + "sumo_2way_single/randomm_"+'**', fig, ax, 'grey', my_labels["x4"], ':')
+    plot_from_file(path_local + "sumo_2way_single/random_"+'**', fig, ax, 'grey', my_labels["x4"], ':')
     
     ax.set_xlabel("Number of Steps")
     ax.set_ylabel("Waiting Time")
@@ -175,7 +178,7 @@ if "all" in drawlist:
     plot_from_file_paraworker(path_local + "sumo_2way_single/a2c_"+'**', fig, ax, 'orange', my_labels["x1"], '-')
     plot_from_file_paraworker(path_local + "sumo_2way_single/dqn_"+'**', fig, ax, 'magenta', my_labels["x3"], '-')
     plot_from_file(path_local + "sumo_2way_single/fixed_"+'**', fig, ax, 'lime', my_labels["x5"], ':')
-    plot_from_file(path_local + "sumo_2way_single/randomm_"+'**', fig, ax, 'grey', my_labels["x4"], ':')
+    plot_from_file(path_local + "sumo_2way_single/random_"+'**', fig, ax, 'grey', my_labels["x4"], ':')
     
     ax.set_xlabel("Number of Steps")
     ax.set_ylabel("Rewards")
